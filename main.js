@@ -114,4 +114,4 @@ class Main {
 }
 
 let m = new Main();
-//m.defaultRegister();
+m.defaultRegister();

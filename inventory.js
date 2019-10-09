@@ -30,11 +30,14 @@ export default class Inventory {
                 this._start = product;
             } else {
                 let previousProduct = this._searchForPreviousProduct(position, this._start);
+                if(previousProduct.next == null) {
+                    this._end = product;
+                }
                 product.next = previousProduct.next;
                 previousProduct.next = product;
             }
         }
-    } 
+    }
 
     searchForInquiry(code) {
         let product = this._searchRegisteredProduct(code, this._start);
@@ -54,16 +57,19 @@ export default class Inventory {
             if (product == -1) {
                 return "Not found";
             } else {
+                if(product.next.code == this._end.code) {
+                    this._end = product;
+                }
                 product.next = product.next.next;
             }
         }
     }
 
     _searchForPreviousProduct(position, start) {
-        for(let i = 1; i < position+1; i++) {
-            if(i == position-1) {
+        for (let i = 1; i < position + 1; i++) {
+            if (i == position - 1) {
                 return start;
-            } 
+            }
             start = start.next;
         }
     }
@@ -98,20 +104,19 @@ export default class Inventory {
         return -1;
     }
 
-
-
     /*_searchRegisteredProduct(code, start) {
-        let string = "";
-        if (start.code == code) {
-            string = start.toString();
-            return string;
-        } else {
-            if (start == this._end) {
-                string = "Not found";
-                return string;
+        if (start != null) {
+            if (start.code == code) {
+                return start;
             } else {
-                this._searchRegisteredProduct(code, start.next);
+                if (start == this._end) {
+                    return -1;
+                } else {
+                    return this._searchRegisteredProduct(code, start.next);
+                }
             }
+        } else {
+            return -1;
         }
     }*/
 
