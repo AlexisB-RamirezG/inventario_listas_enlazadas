@@ -20,6 +20,8 @@ export default class Inventory {
                 this._end.next = product;
                 this._end = product;
             }
+        } else {
+            return 1;
         }
     }
 

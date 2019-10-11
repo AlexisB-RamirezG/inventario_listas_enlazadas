@@ -8,6 +8,7 @@ let bttnRegister = document.querySelector("#register"),
     bttnFlipped = document.querySelector("#flippedInquiry"),
     divInventory = document.querySelector("#showInventory"),
     divInquiry = document.querySelector("#showInquiry"),
+    divStatus = document.querySelector("#status"),
     bttnDelete = document.querySelector("#delete");
 
 bttnRegister.addEventListener("click", () => {
@@ -42,8 +43,12 @@ class Main {
     }
 
     registerNewProduct(objNewProduct) {
-        this._baseInventory.registerProduct(objNewProduct);
+        divStatus.innerHTML = "";
+        if(this._baseInventory.registerProduct(objNewProduct) != null) {
+            divStatus.innerHTML = "This product has already been registered";
+        } else {
         this.showInventory();
+        }
     }
 
     insertProduct(product, position) {
@@ -114,4 +119,4 @@ class Main {
 }
 
 let m = new Main();
-m.defaultRegister();
+//m.defaultRegister();
